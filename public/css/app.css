@@ -1,0 +1,15 @@
+/* Minimal fallback app.css
+   Jika Anda ingin styling lengkap (Tailwind), gunakan Tailwind CDN atau compile dengan npm.
+*/
+
+html, body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Small helpers */
+.bg-gray-100 { background-color: #f3f4f6; }
+.text-gray-900 { color: #111827; }
+
+.container { max-width: 1024px; margin: 0 auto; padding: 1rem; }
+
+/* Add more styles here if needed */
