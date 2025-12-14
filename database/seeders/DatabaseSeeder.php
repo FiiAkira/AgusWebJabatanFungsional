@@ -25,6 +25,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $this->call([
+            DocumentCategorySeeder::class,
+        ]);
+
         // Anda bisa menambahkan lebih banyak seed di sini (kategori, dokumen, dll.)
     }
 }

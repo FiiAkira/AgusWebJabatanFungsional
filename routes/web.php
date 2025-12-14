@@ -9,14 +9,9 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
-    // Jika user sudah login, kirim ke dashboard, jika tidak kirim ke halaman login
     return auth()->check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
 
@@ -30,11 +25,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Document routes (arsip) - but require authentication
+// ROUTE DOKUMEN LENGKAP (CRUD)
 Route::middleware('auth')->group(function () {
+    // 1. Tampilkan & Upload
     Route::get('/arsip-saya', [DocumentController::class, 'index'])->name('documents.index');
     Route::get('/arsip-saya/upload', [DocumentController::class, 'create'])->name('documents.create');
     Route::post('/arsip-saya', [DocumentController::class, 'store'])->name('documents.store');
+
+    // 2. Edit & Update (BARU)
+    Route::get('/arsip-saya/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+    Route::put('/arsip-saya/{id}', [DocumentController::class, 'update'])->name('documents.update');
+
+    // 3. Hapus (BARU)
+    Route::delete('/arsip-saya/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+
+    // 4. Verifikasi
+    Route::patch('/documents/{id}/verify', [DocumentController::class, 'verify'])->name('documents.verify');
 });
 
 require __DIR__.'/auth.php';
